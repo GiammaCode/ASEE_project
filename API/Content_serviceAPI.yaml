@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Film Manager API
+  version: 1.0.0
+  description: API per gestire un catalogo di film (creazione, modifica, lettura e cancellazione).
+servers:
+  - url: http://localhost:8080/api
+    description: Server locale per lo sviluppo
+
+paths:
+  /films:
+    get:
+      summary: Recupera tutti i film
+      responses:
+        '200':
+          description: Lista di tutti i film
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+    post:
+      summary: Aggiungi un nuovo film
+      requestBody:
+        description: Dettagli del film da aggiungere
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '201':
+          description: Film aggiunto con successo
+        '400':
+          description: Richiesta errata (formato o dati mancanti)
+
+  /films/{id}:
+    get:
+      summary: Recupera informazioni su un film specifico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli di un singolo film
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          description: Film non trovato
+          
+    put:
+      summary: Aggiorna le informazioni di un film
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dettagli del film aggiornati
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '200':
+          description: Film aggiornato con successo
+        '400':
+          description: Richiesta errata
+        '404':
+          description: Film non trovato
+
+    patch:
+      summary: Aggiorna parzialmente le informazioni di un film
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Dettagli del film da aggiornare parzialmente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '200':
+          description: Film aggiornato con successo
+        '400':
+          description: Richiesta errata
+        '404':
+          description: Film non trovato
+
+    delete:
+      summary: Cancella un film specifico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Film cancellato con successo
+        '404':
+          description: Film non trovato
+
+components:
+  schemas:
+    Film:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID del film
+          example: 1
+        title:
+          type: string
+          description: Titolo del film
+          example: "Il Padrino"
+        director:
+          type: string
+          description: Regista del film
+          example: "Francis Ford Coppola"
+        release_year:
+          type: integer
+          description: Anno di uscita del film
+          example: 1972
+        genre:
+          type: string
+          description: Genere del film
+          example: "Drammatico"
+        rating:
+          type: number
+          description: Valutazione del film (da 1 a 10)
+          example: 9.2
