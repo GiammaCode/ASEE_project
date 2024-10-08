@@ -1,9 +1,258 @@
 openapi: 3.0.3
 info:
-  title: Title
-  description: Title
+  title: Corrispondence
+  description: the API of the
   version: 1.0.0
 servers:
   - url: 'https'
 paths:
+  /views:
+    get:
+      summary: Ottieni tutte le visualizzazioni per un profilo specifico
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista di visualizzazioni
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/View'
+
+    get:
+      summary: Ottieni una visualizzazione specifica per un film
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli della visualizzazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/View'
+
+    post:
+      summary: Crea una nuova visualizzazione
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/View'
+      responses:
+        '201':
+          description: Visualizzazione creata
+
+    put:
+      summary: Aggiorna una visualizzazione esistente
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/View'
+      responses:
+        '200':
+          description: Visualizzazione aggiornata
+
+    delete:
+      summary: Elimina una visualizzazione
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Visualizzazione eliminata
+
+  /recommended:
+    get:
+      summary: Ottieni tutte le raccomandazioni per un profilo specifico
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista di raccomandazioni
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recommended'
+
+    get:
+      summary: Ottieni una raccomandazione specifica per un film
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dettagli della raccomandazione
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommended'
+
+    post:
+      summary: Crea una nuova raccomandazione
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recommended'
+      responses:
+        '201':
+          description: Raccomandazione creata
+
+    put:
+      summary: Aggiorna una raccomandazione esistente
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recommended'
+      responses:
+        '200':
+          description: Raccomandazione aggiornata
+
+    delete:
+      summary: Elimina una raccomandazione
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filmID
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Raccomandazione eliminata
+
+components:
+  schemas:
+    View:
+      type: object
+      properties:
+        profile:
+          $ref: '../users.yaml#/components/schemas/Profile'
+        filmID:
+          type: integer
+        timesOFTheFilm:
+          type: integer
+        isFinished:
+          type: boolean
+
+    Recommended:
+      type: object
+      properties:
+        profile:
+          $ref: '../users.yaml#/components/schemas/Profile'
+        filmID:
+          type: integer
+        raccomandationType:
+          type: string
+        Viewed:
+          type: boolean
   

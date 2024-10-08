@@ -54,13 +54,26 @@
 - timesOFTheFilm: Int
 - isFinished: boolean
 
+  GET{email, userName} View array
+  GET{email, userName, filmID} get a View
+  POST create a new view
+  PUT/PATCH{email, userName, filmID}
+  DELETE{email, userName,filmID}
+
+    
+  
 ### Recommended:
 - profile: Profile
 - filmID : Int
 - raccomandationType: String
+- Viewed: Boolean
 
 
-
+    GET{email, userName} raccomaned array
+    GET{email, userName, filmID} get a raccomanded
+    POST
+    PUT/PATCH{email, userName, filmID}
+    DELETE{email, userName,filmID}
 
 
 ## API NOTES
