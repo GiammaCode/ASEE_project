@@ -49,31 +49,18 @@
 - timesOFTheFilm: Int
 - isFinished: boolean
 
-<<<<<<< HEAD
-  GET{email, userName} View array
-  GET{email, userName, filmID} get a View
-  POST create a new view
-  PUT/PATCH{email, userName, filmID}
-  DELETE{email, userName,filmID}
+  
 
     
   
-### Recommended:
-=======
+
 ### Recommended class:
->>>>>>> 444809e747dd4b33e3bc08cc618f0ef279618695
 - profile: Profile
 - filmID : Int
 - raccomandationType: String
 - Viewed: Boolean
 
 
-<<<<<<< HEAD
-    GET{email, userName} raccomaned array
-    GET{email, userName, filmID} get a raccomanded
-    POST
-    PUT/PATCH{email, userName, filmID}
-    DELETE{email, userName,filmID}
 
 
 ## API NOTES
@@ -109,4 +96,31 @@
   - DELETE
 - /users/{userId}/profile
   - GET
->>>>>>> 444809e747dd4b33e3bc08cc618f0ef279618695
+
+
+
+### Raccomandation Service
+
+- /users/{userId}/profiles/{profileId}/views
+  - GET 
+  - POST
+  
+- /users/{userId}/profiles/{profileId}/views/{filmID}
+  -  GET
+  - PUT
+  - PATCH
+  - DELETE
+  
+
+  
+- /users/{userId}/profiles/{profileId}/raccomanded
+  - GET
+  - POST
+
+- /users/{userId}/profiles/{profileId}/raccomanded/{filmID}
+  - GET
+  - PUT
+  - PATCH
+  - DELETE
+
+# API NOTES

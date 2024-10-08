@@ -6,253 +6,93 @@ info:
 servers:
   - url: 'https'
 paths:
-  /views:
+  /users/{userId}/profiles/{profileId}/views:
     get:
-      summary: Ottieni tutte le visualizzazioni per un profilo specifico
+      summary: Get the list of films viewed by a specific profile
       parameters:
-        - name: email
-          in: query
+        - in: path
+          name: userId
           required: true
           schema:
-            type: string
-        - name: userName
-          in: query
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
           required: true
           schema:
-            type: string
+            type: integer
+          description: ID of the profile
       responses:
         '200':
-          description: Lista di visualizzazioni
+          description: List of films viewed by the profile
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/View'
-
-    get:
-      summary: Ottieni una visualizzazione specifica per un film
+                  $ref: '../API/content_serviceAPI.yaml#/components/schemas/Film'
+    post:
+      summary: Record that a specific profile has viewed a film
       parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
+        - in: path
+          name: userId
           required: true
           schema:
             type: integer
-      responses:
-        '200':
-          description: Dettagli della visualizzazione
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/View'
-
-    post:
-      summary: Crea una nuova visualizzazione
+          description: ID of the user
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+          description: ID of the profile
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/View'
+              type: object
+              properties:
+                filmId:
+                  type: integer
+                  description: ID of the film viewed by the profile
+              required:
+                - filmId
       responses:
         '201':
-          description: Visualizzazione creata
+          description: View successfully recorded
 
-    put:
-      summary: Aggiorna una visualizzazione esistente
-      parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/View'
-      responses:
-        '200':
-          description: Visualizzazione aggiornata
-
-    delete:
-      summary: Elimina una visualizzazione
-      parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
-          required: true
-          schema:
-            type: integer
-      responses:
-        '204':
-          description: Visualizzazione eliminata
-
-  /recommended:
+  /users/{userId}/profiles/{profileId}/views/{filmId}:
     get:
-      summary: Ottieni tutte le raccomandazioni per un profilo specifico
+      summary: Check if a specific profile has viewed a film
       parameters:
-        - name: email
-          in: query
+        - in: path
+          name: userId
           required: true
           schema:
-            type: string
-        - name: userName
-          in: query
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
           required: true
           schema:
-            type: string
+            type: integer
+          description: ID of the profile
+        - in: path
+          name: filmId
+          required: true
+          schema:
+            type: integer
+          description: ID of the film
       responses:
         '200':
-          description: Lista di raccomandazioni
+          description: Film view status for the profile
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Recommended'
-
-    get:
-      summary: Ottieni una raccomandazione specifica per un film
-      parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Dettagli della raccomandazione
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Recommended'
-
-    post:
-      summary: Crea una nuova raccomandazione
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Recommended'
-      responses:
-        '201':
-          description: Raccomandazione creata
-
-    put:
-      summary: Aggiorna una raccomandazione esistente
-      parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Recommended'
-      responses:
-        '200':
-          description: Raccomandazione aggiornata
-
-    delete:
-      summary: Elimina una raccomandazione
-      parameters:
-        - name: email
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: userName
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: filmID
-          in: query
-          required: true
-          schema:
-            type: integer
-      responses:
-        '204':
-          description: Raccomandazione eliminata
-
-components:
-  schemas:
-    View:
-      type: object
-      properties:
-        profile:
-          $ref: '../users.yaml#/components/schemas/Profile'
-        filmID:
-          type: integer
-        timesOFTheFilm:
-          type: integer
-        isFinished:
-          type: boolean
-
-    Recommended:
-      type: object
-      properties:
-        profile:
-          $ref: '../users.yaml#/components/schemas/Profile'
-        filmID:
-          type: integer
-        raccomandationType:
-          type: string
-        Viewed:
-          type: boolean
+                type: object
+                properties:
+                  viewed:
+                    type: boolean
+                    description: Indicates if the profile has viewed the film
   
