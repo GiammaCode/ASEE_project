@@ -6,44 +6,58 @@
 - titolo : string
 - filmId : Int
 - release : Date
-- actors_inside : List of Actor
+- duration: Int 
+- actors_inside : array Actor
 - genre: String
 - rating: Int
 
 ### Actor class
+- actorID: Int
 - name : String
 - surname : String
 - dateOfBirthday : Date
-- filmRecite : List of film
+- filmRecite : array Film
+
 
 ### User
-- nomeUtente: String
+- nome: String
+- surname: String
 - password: String
 - email: String
 - dateOfBirthday: Date
 - country: String
 - subscriptionPlan: String
+- paymentMethod: PaymentMethod
+- isActive: Boolean
 
-### Payment method:
+
+
+### Profile:
+  - email: String
+  - userName: String
+  - image: String(path)
+  - views : array Views 
+  - raccomanded: array Raccomanded
+
+
+### PaymentMethod:
 - cardType: String
 - holderName: String
 - cardNum: Int
 - expirationDate: String
 - cvv: Int
 
-### Profile:
-  - nomeUtente: String
-  - foto???
-  - 
-
 
 ### View:
-- nomeUtente: String
+- profile: Profile
 - filmID: int
 - timesOFTheFilm: Int
 - isFinished: boolean
 
 ### Recommended:
+- profile: Profile
+- filmID : Int
+- raccomandationType: String
 
 
 
