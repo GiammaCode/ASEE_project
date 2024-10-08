@@ -3,26 +3,44 @@
 ## ENTITY CLASSES
 
 ### Film class
-- name : string
+- titolo : string
 - filmId : Int
 - release : Date
 - actors_inside : List of Actor
+- genre: String
+- rating: Int
 
 ### Actor class
-- Name : String
-- Surname : String
-- DateOfBirthday : date
-- Film_recite : List of film
+- name : String
+- surname : String
+- dateOfBirthday : Date
+- filmRecite : List of film
 
 ### User
-- nome utente: String
+- nomeUtente: String
 - password: String
 
 ### Payment method:
-- type: String
+- cardType: String
+- holderName: String
+- cardNum: Int
+- expirationDate: String
+- cvv: Int
 
 ### Profile:
-- user: User
+  - nomeUtente: String
+  - email: String
+  - password: String
+  - dateOfBirthday: Date
+  - country: String
+  - subscriptionPlan: String
+
+
+### View:
+- user: String
+- filmID: int
+
+### Recommended:
 
 
 
