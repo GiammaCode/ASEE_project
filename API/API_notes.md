@@ -19,6 +19,10 @@
 ### User
 - nomeUtente: String
 - password: String
+- email: String
+- dateOfBirthday: Date
+- country: String
+- subscriptionPlan: String
 
 ### Payment method:
 - cardType: String
@@ -29,16 +33,15 @@
 
 ### Profile:
   - nomeUtente: String
-  - email: String
-  - password: String
-  - dateOfBirthday: Date
-  - country: String
-  - subscriptionPlan: String
+  - foto???
+  - 
 
 
 ### View:
-- user: String
+- nomeUtente: String
 - filmID: int
+- timesOFTheFilm: Int
+- isFinished: boolean
 
 ### Recommended:
 
