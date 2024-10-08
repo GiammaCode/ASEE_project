@@ -1,19 +1,19 @@
 openapi: 3.0.0
 info:
-  title: Film Manager API
+  title: Content Service API
   version: 1.0.0
-  description: API per gestire un catalogo di film (creazione, modifica, lettura e cancellazione).
+  description: API to manage film and actor entities.
 servers:
   - url: http://localhost:8080/api
-    description: Server locale per lo sviluppo
+    description: main local server
 
 paths:
   /films:
     get:
-      summary: Recupera tutti i film
+      summary: Return a list of all available films.
       responses:
         '200':
-          description: Lista di tutti i film
+          description: list of films.
           content:
             application/json:
               schema:
@@ -21,9 +21,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/Film'
     post:
-      summary: Aggiungi un nuovo film
+      summary: Add a new film
       requestBody:
-        description: Dettagli del film da aggiungere
+        description: add film details
         required: true
         content:
           application/json:
@@ -31,13 +31,13 @@ paths:
               $ref: '#/components/schemas/Film'
       responses:
         '201':
-          description: Film aggiunto con successo
+          description: Film added with successfully
         '400':
-          description: Richiesta errata (formato o dati mancanti)
+          description: Error request (missing data)
 
   /films/{id}:
     get:
-      summary: Recupera informazioni su un film specifico
+      summary: Return information about specific film.
       parameters:
         - name: id
           in: path
@@ -46,13 +46,13 @@ paths:
             type: integer
       responses:
         '200':
-          description: Dettagli di un singolo film
+          description: Details of specific film
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Film'
         '404':
-          description: Film non trovato
+          description: Film not found
           
     put:
       summary: Aggiorna le informazioni di un film
@@ -121,25 +121,25 @@ components:
       properties:
         id:
           type: integer
-          description: ID del film
+          description: Film's ID
           example: 1
         title:
           type: string
-          description: Titolo del film
+          description: Film's title
           example: "Il Padrino"
-        director:
+        Actors:
           type: string
-          description: Regista del film
-          example: "Francis Ford Coppola"
+          description: actors in the films
+          example: "Al Pacino, James Caan"
         release_year:
           type: integer
-          description: Anno di uscita del film
+          description: year of release
           example: 1972
         genre:
           type: string
-          description: Genere del film
+          description: type of film
           example: "Drammatico"
         rating:
           type: number
-          description: Valutazione del film (da 1 a 10)
+          description: film's rating (from 1 to 10)
           example: 9.2
