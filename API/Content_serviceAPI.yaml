@@ -8,6 +8,7 @@ servers:
     description: main local server
 
 paths:
+  #FILM MICROSERVICE#
   /films:
     get:
       summary: Return a list of all available films.
@@ -53,7 +54,6 @@ paths:
                 $ref: '#/components/schemas/Film'
         '404':
           description: Film not found
-          
     put:
       summary: Update information about specific film
       parameters:
@@ -114,6 +114,143 @@ paths:
         '404':
           description: Film not found
 
+  #ACTOR MICROSERVICE#
+  /actors:
+    get:
+      summary: gets all actors
+      operationId: getActors
+      responses:
+        '200':
+          description: List of actors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Actor'
+
+    post:
+      summary: Add a new actor
+      operationId: createActor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Actor'
+      responses:
+        '201':
+          description: Actor created with successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Actor'
+
+  /actors/{actorId}:
+    get:
+      summary: gets a specific actor
+      operationId: getActorById
+      parameters:
+        - name: actorId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Actor's ID
+      responses:
+        '200':
+          description: Actor details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Actor'
+        '404':
+          description: Actor not found
+
+    put:
+      summary: Update all details about actor
+      operationId: updateActor
+      parameters:
+        - name: actorId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Actor's ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Actor'
+      responses:
+        '200':
+          description: Actor updated with succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Actor'
+        '404':
+          description: Actor not found
+
+    patch:
+      summary: Update a part of actor's details
+      operationId: patchActor
+      parameters:
+        - name: actorId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Actor's ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Actor updated with successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Actor'
+        '404':
+          description: Actor not found
+
+  /actors/{actorId}/films:
+      get:
+        summary: gets all film of specific actor
+        operationId: getFilmsByActor
+        parameters:
+          - name: actorId
+            in: path
+            required: true
+            schema:
+              type: integer
+            description: Actor's ID
+        responses:
+          '200':
+            description: List of films the actor has performed in
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Film'
+          '404':
+            description: Actor or films not found
+
+#COMPONENTS#
 components:
   schemas:
     Film:
@@ -143,3 +280,29 @@ components:
           type: number
           description: film's rating (from 1 to 10)
           example: 9.2
+
+    Actor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Actor's ID
+          example: 100
+        name:
+          type: string
+          description: Actor's first name
+          example: "Al"
+        surname:
+          type: string
+          description: Actor's surname
+          example: "Pacino"
+        dateOfBirth:
+          type: string
+          format: date
+          description: Actor's birthdate
+          example: "1940-04-25"
+        films:
+          type: array
+          description: List of films the actor has performed in
+          items:
+            $ref: '#/components/schemas/Film'
