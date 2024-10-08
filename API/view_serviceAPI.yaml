@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Corrispondence
+  title: Corrispondence of a profile
   description: the API of the
   version: 1.0.0
 servers:
@@ -56,6 +56,10 @@ paths:
                 filmId:
                   type: integer
                   description: ID of the film viewed by the profile
+                viewedAt:
+                  type: string
+                  format: date-time
+                  description: Date and time when the film was viewed (optional)
               required:
                 - filmId
       responses:
@@ -95,4 +99,221 @@ paths:
                   viewed:
                     type: boolean
                     description: Indicates if the profile has viewed the film
-  
+
+    patch:
+      summary: Update details of a specific film view for a profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+          description: ID of the profile
+        - in: path
+          name: filmId
+          required: true
+          schema:
+            type: integer
+          description: ID of the film
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                viewedAt:
+                  type: string
+                  format: date-time
+                  description: Update the viewing date and time
+      responses:
+        '200':
+          description: View successfully updated
+
+    delete:
+      summary: Delete a specific film view for a profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+          description: ID of the profile
+        - in: path
+          name: filmId
+          required: true
+          schema:
+            type: integer
+          description: ID of the film
+      responses:
+        '204':
+          description: View successfully deleted
+
+
+  /users/{userId}/profiles/{profileId}/recommended:
+    get:
+      summary: Get the list of films recommended for a specific profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+          description: ID of the profile
+      responses:
+        '200':
+          description: List of films recommended for the profile
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../API/content_serviceAPI.yaml#/components/schemas/Film'
+
+    post:
+      summary: Add a recommended film for a specific profile
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: integer
+          description: ID of the user
+        - in: path
+          name: profileId
+          required: true
+          schema:
+            type: integer
+          description: ID of the profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filmId:
+                  type: integer
+                  description: ID of the film being recommended
+                recommendedAt:
+                  type: string
+                  format: date-time
+                  description: Date and time when the recommendation was made (optional)
+              required:
+                - filmId
+      responses:
+        '201':
+          description: Recommendation successfully added
+
+  /users/{userId}/profiles/{profileId}/recommended/{filmId}:
+      get:
+        summary: Check if a specific film is recommended for a profile
+        parameters:
+          - in: path
+            name: userId
+            required: true
+            schema:
+              type: integer
+            description: ID of the user
+          - in: path
+            name: profileId
+            required: true
+            schema:
+              type: integer
+            description: ID of the profile
+          - in: path
+            name: filmId
+            required: true
+            schema:
+              type: integer
+            description: ID of the film
+        responses:
+          '200':
+            description: Recommendation status for the film
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    recommended:
+                      type: boolean
+                      description: Indicates if the film is recommended for the profile
+
+      patch:
+        summary: Update the details of a film recommendation for a profile
+        parameters:
+          - in: path
+            name: userId
+            required: true
+            schema:
+              type: integer
+            description: ID of the user
+          - in: path
+            name: profileId
+            required: true
+            schema:
+              type: integer
+            description: ID of the profile
+          - in: path
+            name: filmId
+            required: true
+            schema:
+              type: integer
+            description: ID of the film
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recommendedAt:
+                    type: string
+                    format: date-time
+                    description: Update the recommendation date and time
+        responses:
+          '200':
+            description: Recommendation successfully updated
+
+      delete:
+        summary: Remove a film recommendation for a profile
+        parameters:
+          - in: path
+            name: userId
+            required: true
+            schema:
+              type: integer
+            description: ID of the user
+          - in: path
+            name: profileId
+            required: true
+            schema:
+              type: integer
+            description: ID of the profile
+          - in: path
+            name: filmId
+            required: true
+            schema:
+              type: integer
+            description: ID of the film
+        responses:
+          '204':
+            description: Recommendation successfully deleted
