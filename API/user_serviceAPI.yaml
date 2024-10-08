@@ -1,9 +1,229 @@
 openapi: 3.0.3
 info:
-  title: Title
-  description: Title
+  title: User Management API
+  description: API to manage users, profiles, and payment methods.
   version: 1.0.0
 servers:
-  - url: 'https'
+  - url: http://localhost:8080/user_api
+    description: main local server
+
 paths:
+  /users:
+    get:
+      summary: Get all users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Get a user by ID
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+    put:
+      summary: Update a user by ID (full update)
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+    patch:
+      summary: Update a user by ID (partial update)
+      operationId: patchUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                surname:
+                  type: string
+                email:
+                  type: string
+                country:
+                  type: string
+                subscriptionPlan:
+                  type: string
+                isActive:
+                  type: boolean
+      responses:
+        '200':
+          description: User partially updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+    delete:
+      summary: Delete a user by ID
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: User successfully deleted
+        '404':
+          description: User not found
+
+  /users/{userId}/profile:
+    get:
+      summary: Get user's profile by user ID
+      operationId: getUserProfile
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        '200':
+          description: User profile details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '404':
+          description: Profile not found
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        dateOfBirthday:
+          type: string
+          format: date
+        country:
+          type: string
+        subscriptionPlan:
+          type: string
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+        isActive:
+          type: boolean
+        profile:
+          $ref: '#/components/schemas/Profile'
+      required:
+        - name
+        - surname
+        - email
+        - password
+        - dateOfBirthday
+        - country
+
+    Profile:
+      type: object
+      properties:
+        email:
+          type: string
+        userName:
+          type: string
+        image:
+          type: string
+          description: Path to the profile image
+        views:
+          type: array
+          items:
+            type: string
+        recommended:
+          type: array
+          items:
+            type: string
+
+    PaymentMethod:
+      type: object
+      properties:
+        cardType:
+          type: string
+        holderName:
+          type: string
+        cardNum:
+          type: integer
+        expirationDate:
+          type: string
+        cvv:
+          type: integer
+
   

@@ -18,8 +18,7 @@
 - dateOfBirthday : Date
 - filmRecite : array Film
 
-
-### User
+### User class
 - nome: String
 - surname: String
 - password: String
@@ -30,37 +29,60 @@
 - paymentMethod: PaymentMethod
 - isActive: Boolean
 
-
-
-### Profile:
+### Profile class:
   - email: String
   - userName: String
   - image: String(path)
   - views : array Views 
   - raccomanded: array Raccomanded
 
-
-### PaymentMethod:
+### PaymentMethod class:
 - cardType: String
 - holderName: String
 - cardNum: Int
 - expirationDate: String
 - cvv: Int
 
-
-### View:
+### View class:
 - profile: Profile
 - filmID: int
 - timesOFTheFilm: Int
 - isFinished: boolean
 
-### Recommended:
+### Recommended class:
 - profile: Profile
 - filmID : Int
 - raccomandationType: String
 
 
+## ENDPOINTS
+### Content service
+- /films/
+    - GET
+    - POST
+- /films/{id}
+  - GET
+  - PUT
+  - PATCH
+  - DELETE
+- /actors
+  - GET
+  - POST
+- /actors/{actorId}
+  - GET
+  - PUT
+  - PATCH
+- /actors/{actorId}/films
+  - GET
 
-
-
-## API NOTES
+### User service
+- /users
+  - GET 
+  - POST
+- /users/{userId}
+  - GET 
+  - PUT 
+  - PATCH
+  - DELETE
+- /users/{userId}/profile
+  - GET
