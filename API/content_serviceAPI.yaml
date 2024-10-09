@@ -22,7 +22,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Film'
     post:
-      summary: Add a new film
+      summary: Add a new film (work with singol film)
       requestBody:
         description: add film details
         required: true
@@ -76,29 +76,6 @@ paths:
           description: error request
         '404':
           description: Film not found
-
-    patch:
-      summary: partial update about specific film
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        description: new partial details of film
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Film'
-      responses:
-        '200':
-          description: Film updated with successfully
-        '400':
-          description: error request
-        '404':
-          description: film not found
 
     delete:
       summary: Remove a specific film.
@@ -185,40 +162,6 @@ paths:
               $ref: '#/components/schemas/Actor'
       responses:
         '200':
-          description: Actor updated with succesfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Actor'
-        '404':
-          description: Actor not found
-
-    patch:
-      summary: Update a part of actor's details
-      operationId: patchActor
-      parameters:
-        - name: actorId
-          in: path
-          required: true
-          schema:
-            type: integer
-          description: Actor's ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                surname:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-      responses:
-        '200':
           description: Actor updated with successfully
           content:
             application/json:
@@ -226,6 +169,21 @@ paths:
                 $ref: '#/components/schemas/Actor'
         '404':
           description: Actor not found
+
+    delete:
+        summary: Remove a specific Actor.
+        parameters:
+          - name: actorId
+            in: path
+            required: true
+            schema:
+              type: integer
+            description: Actor's ID
+        responses:
+          '204':
+            description: Actor removed with successfully
+          '404':
+            description: Actor not found
 
   /actors/{actorId}/films:
       get:

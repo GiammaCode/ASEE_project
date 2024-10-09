@@ -41,8 +41,12 @@
 - timesOFTheFilm: Int
 - isFinished: boolean
 
+<<<<<<< HEAD
 
 ### Recommended:
+=======
+### Recommended class:
+>>>>>>> 96b977131216e3b5a735e4d680c666d646e224a2
 - profile: Profile
 - filmID : Int
 - raccomandationType: String
@@ -61,7 +65,6 @@
 - /films/{id}
   - GET
   - PUT
-  - PATCH
   - DELETE
 - /actors
   - GET
@@ -69,7 +72,7 @@
 - /actors/{actorId}
   - GET
   - PUT
-  - PATCH
+  - DELETE
 - /actors/{actorId}/films
   - GET
 
@@ -79,7 +82,11 @@
   - POST
 - /users/{userId}
   - GET 
+<<<<<<< HEAD
   - PUT 
+=======
+  - PUT
+>>>>>>> 96b977131216e3b5a735e4d680c666d646e224a2
   - DELETE
 - /users/{userId}/profile
   - GET
