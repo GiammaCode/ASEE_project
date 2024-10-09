@@ -49,11 +49,6 @@
 - timesOFTheFilm: Int
 - isFinished: boolean
 
-  
-
-    
-  
-
 ### Recommended class:
 - profile: Profile
 - filmID : Int
@@ -73,7 +68,6 @@
 - /films/{id}
   - GET
   - PUT
-  - PATCH
   - DELETE
 - /actors
   - GET
@@ -81,7 +75,7 @@
 - /actors/{actorId}
   - GET
   - PUT
-  - PATCH
+  - DELETE
 - /actors/{actorId}/films
   - GET
 
@@ -91,8 +85,7 @@
   - POST
 - /users/{userId}
   - GET 
-  - PUT 
-  - PATCH
+  - PUT
   - DELETE
 - /users/{userId}/profile
   - GET
@@ -120,7 +113,6 @@
 - /users/{userId}/profiles/{profileId}/raccomanded/{filmID}
   - GET
   - PUT
-  - PATCH
   - DELETE
 
 # API NOTES
