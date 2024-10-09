@@ -24,9 +24,7 @@
 - password: String
 - email: String
 - dateOfBirthday: Date
-- country: String
-- subscriptionPlan: String
-- paymentMethod: PaymentMethod
+- paymentMethod: String
 - isActive: Boolean
 
 ### Profile class:
@@ -36,25 +34,15 @@
   - views : array Views 
   - raccomanded: array Raccomanded
 
-### PaymentMethod class:
-- cardType: String
-- holderName: String
-- cardNum: Int
-- expirationDate: String
-- cvv: Int
 
-### View class:
+### View:
 - profile: Profile
 - filmID: int
 - timesOFTheFilm: Int
 - isFinished: boolean
 
-  
 
-    
-  
-
-### Recommended class:
+### Recommended:
 - profile: Profile
 - filmID : Int
 - raccomandationType: String
@@ -92,10 +80,14 @@
 - /users/{userId}
   - GET 
   - PUT 
-  - PATCH
   - DELETE
 - /users/{userId}/profile
   - GET
+  - POST
+- - /users/{userId}/profile/profile{id}
+  - GET
+  - PUT
+  - DELETE
 
 
 
@@ -108,7 +100,6 @@
 - /users/{userId}/profiles/{profileId}/views/{filmID}
   -  GET
   - PUT
-  - PATCH
   - DELETE
   
 
@@ -120,7 +111,6 @@
 - /users/{userId}/profiles/{profileId}/raccomanded/{filmID}
   - GET
   - PUT
-  - PATCH
   - DELETE
 
 # API NOTES
