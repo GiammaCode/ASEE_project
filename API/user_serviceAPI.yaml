@@ -207,10 +207,14 @@ components:
           type: string
           description: Path to profile image
         views:
-          $ref: '../API/view_serviceAPI.yaml#/components/schemas/View'
+          type: array
+          items:
+            type: object
 
         raccomanded:
-          $ref: '../API/view_serviceAPI.yaml#/components/schemas/Recommended'
+          type: array
+          items:
+            type: object
       required:
         - email
         - userName

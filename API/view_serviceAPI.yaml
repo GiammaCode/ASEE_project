@@ -289,7 +289,7 @@ components:
       type: object
       properties:
         profile:
-          $ref: '../API/user_serviceAPI.yaml#/components/schemas/Profile'
+          type: object
         filmID:
           type: integer
           description: Unique identifier for the viewed film
@@ -304,7 +304,7 @@ components:
       type: object
       properties:
         profile:
-          $ref: '../API/user_serviceAPI.yaml#/components/schemas/Profile'
+          type: object
         filmID:
           type: integer
           description: Unique identifier for the recommended film
